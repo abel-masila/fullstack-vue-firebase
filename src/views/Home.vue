@@ -16,7 +16,6 @@
             <a href="https://vuejs.org/">Vue.js</a>
             with
             <a href="https://firebase.google.com">Firebase</a>.
-            <font-awesome-icon icon="star"></font-awesome-icon>
           </p>
 
           <router-link class="btn btn-outline-primary mr-2" to="/register"
@@ -35,26 +34,8 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-import db from './../db'
 export default {
   name: 'Home',
-  components: {
-    FontAwesomeIcon
-  },
-  data: function() {
-    return {
-      user: null
-    }
-  },
-  mounted() {
-    db.collection('users')
-      .doc('Ekfjq1Yk4qDSdPkrpVgh')
-      .get()
-      .then(snapShot => {
-        this.user = snapShot.data().name
-      })
-  }
+  props: ['user']
 }
 </script>

@@ -1,15 +1,31 @@
 <template>
   <div id="app">
     <Navigation />
-    <router-view class="container" />
+    <router-view class="container" :user="user" />
   </div>
 </template>
 <script>
+//import * as firebase from 'firebase/app'
 import Navigation from '@/components/Navigation.vue'
+
+import db from './db'
 export default {
   name: 'app',
   components: {
     Navigation
+  },
+  data: function() {
+    return {
+      user: null
+    }
+  },
+  mounted() {
+    db.collection('users')
+      .doc('Ekfjq1Yk4qDSdPkrpVgh')
+      .get()
+      .then(snapShot => {
+        this.user = snapShot.data().name
+      })
   }
 }
 </script>
