@@ -5,6 +5,7 @@ import Meetings from '../views/Meetings.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Checkin from './../views/Checkin.vue'
+import Attendees from './../views/Attendees.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     component: Checkin
   },
 
+  {
+    path: '/attendees/:userID/:meetingID',
+    name: 'Attendees',
+    component: Attendees
+  },
   {
     path: '*',
     redirect: '/'
