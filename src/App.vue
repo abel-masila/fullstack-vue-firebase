@@ -7,6 +7,7 @@
       @logout="logout"
       @addMeeting="addMeeting"
       :meetings="meetings"
+      @deleteMeeting="deleteMeeting"
     />
   </div>
 </template>
@@ -44,6 +45,13 @@ export default {
           name: payload,
           createdAt: Firebase.firestore.FieldValue.serverTimestamp()
         })
+    },
+    deleteMeeting: function(payload) {
+      db.collection('users')
+        .doc(this.user.uid)
+        .collection('meetings')
+        .doc(payload)
+        .delete()
     }
   },
   mounted() {
