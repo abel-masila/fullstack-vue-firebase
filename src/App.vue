@@ -5,7 +5,8 @@
   </div>
 </template>
 <script>
-//import * as firebase from 'firebase/app'
+import Firebase from 'firebase/app'
+import 'firebase/auth'
 import Navigation from '@/components/Navigation.vue'
 
 import db from './db'
@@ -20,11 +21,16 @@ export default {
     }
   },
   mounted() {
+    Firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user.email
+      }
+    })
     db.collection('users')
       .doc('Ekfjq1Yk4qDSdPkrpVgh')
       .get()
-      .then(snapShot => {
-        this.user = snapShot.data().name
+      .then(() => {
+        //this.user = snapShot.data().name
       })
   }
 }
