@@ -10,6 +10,29 @@
           <div
             class="card-body px-3 py-2 d-flex align-items-center justify-content-center"
           >
+            <div
+              class="btn-group pr-2"
+              v-if="user !== null && user.uid === userID"
+            >
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                title="Give use a Star"
+              >
+                <font-awesome-icon icon="star"></font-awesome-icon>
+              </button>
+              <a
+                class="btn btn-sm btn-outline-secondary"
+                title="Give use an email"
+              >
+                <font-awesome-icon icon="envelope"></font-awesome-icon>
+              </a>
+              <a
+                class="btn btn-sm btn-outline-secondary"
+                title="Delete Attendee"
+              >
+                <font-awesome-icon icon="trash"></font-awesome-icon>
+              </a>
+            </div>
             <div>{{ item.name }}</div>
           </div>
         </div>
@@ -18,15 +41,20 @@
   </div>
 </template>
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import db from './../db'
 export default {
   name: 'Attendees',
+  props: ['user'],
   data() {
     return {
       attendees: [],
       userID: this.$route.params.userID,
       meetingID: this.$route.params.meetingID
     }
+  },
+  components: {
+    FontAwesomeIcon
   },
   mounted() {
     db.collection('users')
