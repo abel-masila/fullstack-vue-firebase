@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import DisableAutocomplete from '@aacassandra/vue-disable-autocomplete'
 import App from './App.vue'
 import router from './router'
 import {
@@ -13,6 +14,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faTrash, faLink, faListUl, faRandom, faUndo, faStar, faEnvelope)
+Vue.use(DisableAutocomplete)
 Vue.config.productionTip = false
 
 new Vue({

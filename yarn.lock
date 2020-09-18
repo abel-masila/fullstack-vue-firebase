@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@aacassandra/vue-disable-autocomplete@^19.5.233":
+  version "19.5.233"
+  resolved "https://registry.yarnpkg.com/@aacassandra/vue-disable-autocomplete/-/vue-disable-autocomplete-19.5.233.tgz#f6c69423ef6eb614df61a9320f0ef82d4de4eb9e"
+  integrity sha512-XY9UGH7s9OytBzRenk1sQUgavVeH52ZcjkMQPhbO8aVGKpQWZ2cEjvFRgrocjRo5XZOzp6QYjrorg3a+/OITAw==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"

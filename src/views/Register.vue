@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="mt-3" @submit.prevent="register">
+    <form class="mt-3" @submit.prevent="register" autocomplete="off">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8">
@@ -23,6 +23,7 @@
                       name="displayName"
                       required
                       v-model="displayName"
+                      autocomplete="off"
                     />
                   </section>
                 </div>
@@ -38,6 +39,7 @@
                     required
                     name="email"
                     v-model="email"
+                    autocomplete="off"
                   />
                 </section>
                 <div class="form-row">
@@ -47,6 +49,7 @@
                       type="password"
                       placeholder="Password"
                       v-model="passOne"
+                      autocomplete="off"
                     />
                   </section>
                   <section class="col-sm-6 form-group">
@@ -56,6 +59,7 @@
                       required
                       placeholder="Repeat Password"
                       v-model="passTwo"
+                      autocomplete="off"
                     />
                   </section>
                 </div>
@@ -78,7 +82,53 @@
 </template>
 
 <script>
-export default {}
+import Firebase from 'firebase'
+export default {
+  data() {
+    return {
+      displayName: '',
+      email: '',
+      passTwo: '',
+      passOne: '',
+      error: null
+    }
+  },
+  methods: {
+    register: function() {
+      const info = {
+        email: this.email,
+        passOne: this.passOne,
+        displayName: this.displayName
+      }
+
+      if (!this.error) {
+        Firebase.auth()
+          .createUserWithEmailAndPassword(info.email, info.passOne)
+          .then(
+            () => {
+              this.$router.replace('/meetings')
+            },
+            error => {
+              this.error = error.message
+            }
+          )
+      }
+    }
+  },
+  watch: {
+    passTwo: function() {
+      if (
+        this.passOne !== '' &&
+        this.passTwo !== '' &&
+        this.passTwo !== this.passOne
+      ) {
+        this.error = 'Passwords must match'
+      } else {
+        this.error = null
+      }
+    }
+  }
+}
 </script>
 
 <style></style>
