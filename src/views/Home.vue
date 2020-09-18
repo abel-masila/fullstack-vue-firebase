@@ -1,12 +1,11 @@
 <template>
   <div>
+    <Navigation />
     <h3>Welcome</h3>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: 'Home'
 }
