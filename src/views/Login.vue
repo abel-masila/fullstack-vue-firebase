@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="mt-3">
+    <form class="mt-3" @submit.prevent="login">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-6">
@@ -49,13 +49,32 @@
 </template>
 
 <script>
-//import Firebase from 'firebase/app'
+import Firebase from 'firebase/app'
+import 'firebase/auth'
 export default {
   data: () => {
     return {
       email: '',
       password: '',
       error: ''
+    }
+  },
+  methods: {
+    login: function() {
+      const info = {
+        email: this.email,
+        password: this.password
+      }
+      Firebase.auth()
+        .signInWithEmailAndPassword(info.email, info.password)
+        .then(
+          () => {
+            this.$router.push('/meetings')
+          },
+          error => {
+            this.error = error.message
+          }
+        )
     }
   }
 }
