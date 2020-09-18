@@ -23,12 +23,16 @@
               <a
                 class="btn btn-sm btn-outline-secondary"
                 title="Give use an email"
+                role="button"
+                :href="'mailto:' + item.email"
               >
                 <font-awesome-icon icon="envelope"></font-awesome-icon>
               </a>
               <a
                 class="btn btn-sm btn-outline-secondary"
                 title="Delete Attendee"
+                role="button"
+                @click="deleteAttendee(item.id)"
               >
                 <font-awesome-icon icon="trash"></font-awesome-icon>
               </a>
@@ -73,6 +77,19 @@ export default {
         })
         this.attendees = snapData
       })
+  },
+  methods: {
+    deleteAttendee: function(id) {
+      if (this.user && this.user.uid === this.userID) {
+        db.collection('users')
+          .doc(this.user.uid)
+          .collection('meetings')
+          .doc(this.meetingID)
+          .collection('attendees')
+          .doc(id)
+          .delete()
+      }
+    }
   }
 }
 </script>
