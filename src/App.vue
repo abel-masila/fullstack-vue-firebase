@@ -6,6 +6,7 @@
       :user="user"
       @logout="logout"
       @addMeeting="addMeeting"
+      :meetings="meetings"
     />
   </div>
 </template>
