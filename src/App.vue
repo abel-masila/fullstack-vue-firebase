@@ -33,7 +33,7 @@ export default {
   mounted() {
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.user = user.displayName
+        this.user = user
       }
     })
     db.collection('users')

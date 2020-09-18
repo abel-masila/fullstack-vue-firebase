@@ -3,7 +3,7 @@
     <div class="text-secondary text-center">
       <div v-if="user" class="text-center">
         Welcome back
-        <span class="text-info font-weight-bold">{{ user }}</span
+        <span class="text-info font-weight-bold">{{ user.displayName }}</span
         >,
         <a href="#" class="text-primary" role="button" @click="$emit('logout')"
           >Logout</a
