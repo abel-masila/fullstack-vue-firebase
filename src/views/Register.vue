@@ -105,8 +105,14 @@ export default {
         Firebase.auth()
           .createUserWithEmailAndPassword(info.email, info.passOne)
           .then(
-            () => {
-              this.$router.replace('/meetings')
+            userInfo => {
+              return userInfo.user
+                .updateProfile({
+                  displayName: info.displayName
+                })
+                .then(() => {
+                  this.$router.replace('/meetings')
+                })
             },
             error => {
               this.error = error.message
