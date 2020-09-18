@@ -15,12 +15,14 @@
                   placeholder="Meeting name"
                   aria-describedby="buttonAdd"
                   v-model="meetingName"
+                  ref="meetingName"
                 />
                 <div class="input-group-append">
                   <button
                     type="submit"
                     class="btn btn-sm btn-info"
                     id="buttonAdd"
+                    @click.prevent="handleAdd"
                   >
                     +
                   </button>
@@ -37,9 +39,17 @@
 <script>
 export default {
   name: 'Meetings',
+  props: ['user'],
   data: function() {
     return {
       meetingName: ''
+    }
+  },
+  methods: {
+    handleAdd: function() {
+      this.$emit('addMeeting', this.meetingName)
+      this.meetingName = ''
+      this.$refs.meetingName.focus()
     }
   }
 }

@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <Navigation :user="user" @logout="logout" />
-    <router-view class="container" :user="user" @logout="logout" />
+    <router-view
+      class="container"
+      :user="user"
+      @logout="logout"
+      @addMeeting="addMeeting"
+    />
   </div>
 </template>
 <script>
@@ -28,6 +33,15 @@ export default {
           this.user = null
           this.$router.push('/login')
         })
+    },
+    addMeeting: function(payload) {
+      db.collection('users')
+        .doc(this.user.uid)
+        .collection('meetings')
+        .add({
+          name: payload,
+          createdAt: Firebase.firestore.FieldValue.serverTimestamp()
+        })
     }
   },
   mounted() {
@@ -36,12 +50,6 @@ export default {
         this.user = user
       }
     })
-    db.collection('users')
-      .doc('Ekfjq1Yk4qDSdPkrpVgh')
-      .get()
-      .then(() => {
-        //this.user = snapShot.data().name
-      })
   }
 }
 </script>
