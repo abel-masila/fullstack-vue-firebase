@@ -8,6 +8,8 @@
       @addMeeting="addMeeting"
       :meetings="meetings"
       @deleteMeeting="deleteMeeting"
+      @checkIn="checkIn"
+      :error="error"
     />
   </div>
 </template>
@@ -25,7 +27,8 @@ export default {
   data: function() {
     return {
       user: null,
-      meetings: []
+      meetings: [],
+      error: null
     }
   },
   methods: {
@@ -52,6 +55,34 @@ export default {
         .collection('meetings')
         .doc(payload)
         .delete()
+    },
+    checkIn: function(payload) {
+      db.collection('users')
+        .doc(payload.userID)
+        .collection('meetings')
+        .doc(payload.meetingID)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            db.collection('users')
+              .doc(payload.userID)
+              .collection('meetings')
+              .doc(payload.meetingID)
+              .collection('attendees')
+              .add({
+                displayName: payload.displayName,
+                email: payload.email,
+                createdAt: Firebase.firestore.FieldValue.serverTimestamp()
+              })
+              .then(() => {
+                this.$router.push(
+                  '/attendees/' + payload.userID + '/' + payload.meetingID
+                )
+              })
+          } else {
+            this.error = 'Sorry, no such meeting'
+          }
+        })
     }
   },
   mounted() {
